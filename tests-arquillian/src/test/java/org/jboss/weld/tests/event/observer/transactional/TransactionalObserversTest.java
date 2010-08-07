@@ -57,7 +57,7 @@ public class TransactionalObserversTest
          );
    }
 
-   @Inject
+   @Inject @Tame
    private PomeranianInterface dog;
 
    @Inject
