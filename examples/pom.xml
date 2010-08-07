@@ -3,13 +3,13 @@
    <modelVersion>4.0.0</modelVersion>
    <parent>
       <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-parent</artifactId>
-      <version>12</version>
+      <artifactId>weld-core-parent</artifactId>
+      <version>1.1.0-SNAPSHOT</version>
+      <relativePath>../parent/pom.xml</relativePath>
    </parent>
    <groupId>org.jboss.weld.examples</groupId>
    <artifactId>weld-examples-parent</artifactId>
    <packaging>pom</packaging>
-   <version>1.0.2-SNAPSHOT</version>
    <name>Weld Examples</name>
 
    <description>
@@ -82,23 +82,18 @@
       <module>jsf/permalink</module>
       <module>se/numberguess</module>
       <module>se/hello-world</module>
-      <module>wicket/numberguess</module>
    </modules>
 
    <properties>
+      <!-- Override JSF version to 2.0 -->
       <jsf.version>2.0.2-FCS</jsf.version>
-      <weld.api.version>1.0-SP1</weld.api.version>
-      <weld.wicket.version>1.0.1-Final</weld.wicket.version>
-      <weld.se.version>1.0.1-Final</weld.se.version>
-      <weld.servlet.version>1.0.1-Final</weld.servlet.version>
       <jetty.version>6.1.21</jetty.version>
-      <uel.glassfish.version>2.1.2-b04</uel.glassfish.version>
+      <!-- UEL Impl -->
+      <uel.version>2.2</uel.version>
       <!-- Testing deps -->
-      <testng.version>5.10</testng.version>
       <selenium.java.client.version>1.0.1</selenium.java.client.version>
       <selenium.maven.plugin.version>1.0</selenium.maven.plugin.version>
       <cargo.maven2.plugin.version>1.0</cargo.maven2.plugin.version>
-      <maven.antrun.plugin.version>1.3</maven.antrun.plugin.version>
       <failsafe.maven.plugin.version>2.4.3-alpha-1</failsafe.maven.plugin.version>
       <ant.junit.version>1.6.2</ant.junit.version>
       <ftest.version.discriminator />
@@ -111,22 +106,6 @@
       <selenium.debug>false</selenium.debug>
       <application.deploy.timeout>300</application.deploy.timeout>      
    </properties>
-
-   <!-- Dependency management, including any extra repositories needed -->
-   <repositories>
-      <repository>
-         <id>oss.sonatype.org/jboss-snapshots</id>
-         <name>JBoss (Nexus) Snapshots Repository</name>
-         <url>http://oss.sonatype.org/content/repositories/snapshots</url>
-         <releases>
-            <enabled>false</enabled>
-         </releases>
-         <snapshots>
-            <enabled>true</enabled>
-            <updatePolicy>never</updatePolicy>
-         </snapshots>
-      </repository>
-   </repositories>
 
    <dependencyManagement>
       <dependencies>
@@ -141,49 +120,6 @@
             <groupId>javax.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>${jsf.version}</version>
-         </dependency>
-
-         <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-api-bom</artifactId>
-            <version>${weld.api.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         
-         <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-wicket</artifactId>
-            <version>${weld.wicket.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         
-         <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-wicket</artifactId>
-            <version>${weld.wicket.version}</version>
-         </dependency>
-
-         <dependency>
-            <groupId>org.jboss.weld.servlet</groupId>
-            <artifactId>weld-servlet</artifactId>
-            <version>${weld.servlet.version}</version>
-         </dependency>
-
-
-         <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-se</artifactId>
-            <version>${weld.se.version}</version>
-         </dependency>
-
-
-         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <classifier>jdk15</classifier>
          </dependency>
 
          <dependency>
@@ -207,24 +143,19 @@
          <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>el-impl</artifactId>
-            <version>${uel.glassfish.version}</version>
+            <version>${uel.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>${selenium.java.client.version}</version>
          </dependency>
 
       </dependencies>
    </dependencyManagement>
 
    <build>
-      <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-release-plugin</artifactId>
-            <configuration>
-               <tagBase>https://svn.jboss.org/repos/weld/examples/tags</tagBase>
-            </configuration>
-         </plugin>
-
-      </plugins>
-
       <pluginManagement>
          <plugins>
             <plugin>
@@ -234,15 +165,24 @@
                   <ejbVersion>3.0</ejbVersion>
                </configuration>
             </plugin>
+            <plugin>
+               <groupId>org.codehaus.cargo</groupId>
+               <artifactId>cargo-maven2-plugin</artifactId>
+               <version>${cargo.maven2.plugin.version}</version>
+            </plugin>
+            <plugin>
+               <groupId>org.codehaus.mojo</groupId>
+               <artifactId>selenium-maven-plugin</artifactId>
+               <version>${selenium.maven.plugin.version}</version>
+            </plugin>
+            <plugin>
+               <groupId>org.codehaus.mojo</groupId>
+               <artifactId>failsafe-maven-plugin</artifactId>
+               <version>${failsafe.maven.plugin.version}</version>
+            </plugin>
          </plugins>
       </pluginManagement>
    </build>
-
-   <scm>
-      <connection>scm:svn:http://anonsvn.jboss.org/repos/weld/examples/trunk</connection>
-      <developerConnection>scm:svn:https://svn.jboss.org/repos/weld/examples/trunk</developerConnection>
-     <url>http://fisheye.jboss.org/browse/weld/examples/trunk</url>
-  </scm>
 
    <profiles>
       <profile>
@@ -250,20 +190,6 @@
          <activation>
             <activeByDefault>false</activeByDefault>
          </activation>
-
-         <pluginRepositories>
-            <pluginRepository>
-               <id>repository.codehaus.repository</id>
-               <url>http://repository.codehaus.org/</url>
-               <releases>
-                  <enabled>true</enabled>
-               </releases>
-               <snapshots>
-                  <enabled>true</enabled>
-                  <updatePolicy>never</updatePolicy>
-               </snapshots>
-            </pluginRepository>
-         </pluginRepositories>
 
          <properties>
             <ftest.testsuite>jboss5x.xml</ftest.testsuite>
@@ -273,7 +199,6 @@
             <dependency>
                <groupId>org.seleniumhq.selenium.client-drivers</groupId>
                <artifactId>selenium-java-client-driver</artifactId>
-               <version>${selenium.java.client.version}</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
@@ -311,7 +236,6 @@
                   <plugin>
                      <groupId>org.codehaus.cargo</groupId>
                      <artifactId>cargo-maven2-plugin</artifactId>
-                     <version>${cargo.maven2.plugin.version}</version>
                      <configuration>
                         <container>
                            <containerId>jboss5x</containerId>
@@ -343,7 +267,6 @@
                   <plugin>
                      <groupId>org.codehaus.mojo</groupId>
                      <artifactId>selenium-maven-plugin</artifactId>
-                     <version>${selenium.maven.plugin.version}</version>
                      <executions>
                         <execution>
                            <id>start-selenium</id>
@@ -378,7 +301,6 @@
                   <plugin>
                      <groupId>org.codehaus.mojo</groupId>
                      <artifactId>failsafe-maven-plugin</artifactId>
-                     <version>${failsafe.maven.plugin.version}</version>
                      <configuration>
                         <testClassesDirectory>${project.build.directory}/ftest</testClassesDirectory>
                         <suiteXmlFiles>
@@ -440,7 +362,6 @@
                   <plugin>
                      <groupId>org.apache.maven.plugins</groupId>
                      <artifactId>maven-antrun-plugin</artifactId>
-                     <version>${maven.antrun.plugin.version}</version>
 
                      <executions>
                         <!-- this ant script runs testng natively -->
@@ -469,20 +390,6 @@
             <activeByDefault>false</activeByDefault>
          </activation>
 
-         <pluginRepositories>
-            <pluginRepository>
-               <id>repository.codehaus.repository</id>
-               <url>http://repository.codehaus.org/</url>
-               <releases>
-                  <enabled>true</enabled>
-               </releases>
-               <snapshots>
-                  <enabled>true</enabled>
-                  <updatePolicy>never</updatePolicy>
-               </snapshots>
-            </pluginRepository>
-         </pluginRepositories>
-
          <properties>
             <ftest.testsuite>jboss5x.xml</ftest.testsuite>
          </properties>
@@ -491,7 +398,6 @@
             <dependency>
                <groupId>org.seleniumhq.selenium.client-drivers</groupId>
                <artifactId>selenium-java-client-driver</artifactId>
-               <version>${selenium.java.client.version}</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
@@ -529,7 +435,6 @@
                   <plugin>
                      <groupId>org.codehaus.cargo</groupId>
                      <artifactId>cargo-maven2-plugin</artifactId>
-                     <version>${cargo.maven2.plugin.version}</version>
                      <configuration>
                         <container>
                            <containerId>jboss5x</containerId>
@@ -561,7 +466,6 @@
                   <plugin>
                      <groupId>org.codehaus.mojo</groupId>
                      <artifactId>selenium-maven-plugin</artifactId>
-                     <version>${selenium.maven.plugin.version}</version>
                      <executions>
                         <execution>
                            <id>start-selenium</id>
@@ -597,7 +501,6 @@
                   <plugin>
                      <groupId>org.codehaus.mojo</groupId>
                      <artifactId>failsafe-maven-plugin</artifactId>
-                     <version>${failsafe.maven.plugin.version}</version>
                      <configuration>
                         <testClassesDirectory>${project.build.directory}/ftest</testClassesDirectory>
                         <suiteXmlFiles>
@@ -659,7 +562,6 @@
                   <plugin>
                      <groupId>org.apache.maven.plugins</groupId>
                      <artifactId>maven-antrun-plugin</artifactId>
-                     <version>${maven.antrun.plugin.version}</version>
 
                      <executions>
                         <!-- this ant script runs testng natively -->
@@ -689,20 +591,6 @@
             <activeByDefault>false</activeByDefault>
          </activation>
 
-         <pluginRepositories>
-            <pluginRepository>
-               <id>repository.codehaus.repository</id>
-               <url>http://repository.codehaus.org/</url>
-               <releases>
-                  <enabled>true</enabled>
-               </releases>
-               <snapshots>
-                  <enabled>true</enabled>
-                  <updatePolicy>never</updatePolicy>
-               </snapshots>
-            </pluginRepository>
-         </pluginRepositories>
-
          <properties>
             <ftest.testsuite>jboss6x-cluster.xml</ftest.testsuite>
          </properties>
@@ -711,7 +599,6 @@
             <dependency>
                <groupId>org.seleniumhq.selenium.client-drivers</groupId>
                <artifactId>selenium-java-client-driver</artifactId>
-               <version>${selenium.java.client.version}</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
@@ -749,7 +636,6 @@
                   <plugin>
                      <groupId>org.codehaus.mojo</groupId>
                      <artifactId>selenium-maven-plugin</artifactId>
-                     <version>${selenium.maven.plugin.version}</version>
                      <executions>
                         <execution>
                            <id>start-selenium</id>
@@ -785,7 +671,6 @@
                   <plugin>
                      <groupId>org.codehaus.mojo</groupId>
                      <artifactId>failsafe-maven-plugin</artifactId>
-                     <version>${failsafe.maven.plugin.version}</version>
                      <configuration>
                         <testClassesDirectory>${project.build.directory}/ftest</testClassesDirectory>
                         <suiteXmlFiles>
@@ -851,7 +736,6 @@
                   <plugin>
                      <groupId>org.apache.maven.plugins</groupId>
                      <artifactId>maven-antrun-plugin</artifactId>
-                     <version>${maven.antrun.plugin.version}</version>
 
                      <executions>
 						<!-- deploy application to farm directory and waiting for the application to be ready				  -->

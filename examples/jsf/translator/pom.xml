@@ -4,13 +4,13 @@
    <parent>
       <groupId>org.jboss.weld.examples</groupId>
       <artifactId>weld-examples-parent</artifactId>
-      <version>1.0.2-SNAPSHOT</version>
+      <version>1.1.0-SNAPSHOT</version>
       <relativePath>../../pom.xml</relativePath>
    </parent>
    <groupId>org.jboss.weld.examples.jsf.translator</groupId>
    <artifactId>weld-jsf-translator-parent</artifactId>
    <packaging>pom</packaging>
-   <name>Weld Examples: Translator (parent)</name>
+   <name>Weld Examples: Translator [parent] (JSF)</name>
    <url>http://www.seamframework.org/Weld</url>
    <licenses>
       <license>
@@ -59,12 +59,6 @@
          </plugins>
       </pluginManagement>
    </build>
-
-   <scm>
-      <connection>scm:svn:http://anonsvn.jboss.org/repos/weld/examples/trunk/jsf/translator</connection>
-      <developerConnection>scm:svn:https://svn.jboss.org/repos/weld/examples/trunk/jsf/translator</developerConnection>
-     <url>http://fisheye.jboss.org/browse/weld/examples/trunk/jsf/translator</url>
-  </scm>
 
 </project>
 

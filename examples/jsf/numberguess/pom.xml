@@ -5,14 +5,14 @@
    <parent>
       <groupId>org.jboss.weld.examples</groupId>
       <artifactId>weld-examples-parent</artifactId>
-      <version>1.0.2-SNAPSHOT</version>
+      <version>1.1.0-SNAPSHOT</version>
       <relativePath>../../pom.xml</relativePath>
    </parent>
 
    <groupId>org.jboss.weld.examples.jsf</groupId>
    <artifactId>weld-jsf-numberguess</artifactId>
    <packaging>war</packaging>
-   <name>Weld Examples: Numberguess</name>
+   <name>Weld Examples: Numberguess (JSF)</name>
 
    <url>http://www.seamframework.org/Weld</url>
    <licenses>
@@ -357,35 +357,6 @@
                         </goals>
                      </execution>
                   </executions>
-               </plugin>
-               <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-eclipse-plugin</artifactId>
-                  <configuration>
-                     <classpathContainers>
-                        <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-                        <classpathContainer>com.google.appengine.eclipse.core.GAE_CONTAINER</classpathContainer>
-                     </classpathContainers>
-                     <additionalBuildcommands>
-                        <buildcommand>com.google.appengine.eclipse.core.projectValidator</buildcommand>
-                     </additionalBuildcommands>
-                     <additionalProjectnatures>
-                        <projectnature>com.google.appengine.eclipse.core.gaeNature</projectnature>
-                     </additionalProjectnatures>
-                     <additionalConfig>
-                        <file>
-                           <name>.settings/com.google.appengine.eclipse.core.prefs</name>
-                           <content>
-<![CDATA[#Wed Sep 23 16:29:55 BST 2009
-eclipse.preferences.version=1
-filesCopiedToWebInfLib=appengine-api-1.0-sdk-1.2.5.jar|appengine-api-labs-1.2.5.jar|datanucleus-appengine-1.0.3.jar|datanucleus-core-1.1.5.jar|datanucleus-jpa-1.1.5.jar|geronimo-jpa_3.0_spec-1.1.1.jar|geronimo-jta_1.1_spec-1.1.1.jar|jdo2-api-2.3-eb.jar]]>
-                           </content>
-                        </file>
-                     </additionalConfig>
-                     <buildOutputDirectory>
-                        src/main/webapp/WEB-INF/classes
-                     </buildOutputDirectory>
-                  </configuration>
                </plugin>
             </plugins>
          </build>
@@ -741,12 +712,6 @@ filesCopiedToWebInfLib=appengine-api-1.0-sdk-1.2.5.jar|appengine-api-labs-1.2.5.
       <embedded-tomcat.http.port>9090</embedded-tomcat.http.port>
       <embedded-tomcat.debug.port>9190</embedded-tomcat.debug.port>
    </properties>
-
-   <scm>
-      <connection>scm:svn:http://anonsvn.jboss.org/repos/weld/examples/trunk/jsf/numberguess</connection>
-      <developerConnection>scm:svn:https://svn.jboss.org/repos/weld/examples/trunk/jsf/numberguess</developerConnection>
-     <url>http://fisheye.jboss.org/browse/weld/examples/trunk/jsf/numberguess</url>
-  </scm>
 
 </project>
 
